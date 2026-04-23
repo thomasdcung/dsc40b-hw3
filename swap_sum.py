@@ -1,17 +1,29 @@
-def histogram(points, bins):
-    """Efficiently computes a histogram.
+def swap_sum(A, B):
+    """Swaps two elements in two sorted arrays to obtain a target sum 
+    difference of 10.
 
-    Assumes that both `points` and `bins` are sorted in ascending order to
-    avoid looping through all bins for each point.
+    Assumes that both arrays are sorted in ascending order and only 
+    contain integers.
 
     """
-    n = len(points)
-    counts = [0] * len(bins)
+    # TODO: Implement the swap_sum function
+    sum_a = sum(A)
+    sum_b = sum(B)
+
+    diff = 10 - (sum_b - sum_a)
+    if diff % 2 != 0:
+        return None
+    target = diff // 2 
+
+    i, j = 0, 0
+    while i < len(A) and j < len(B):
+        b_needed = A[i] - target
+        if B[j] == b_needed:
+            return (i, j)
+        elif B[j] < b_needed:
+            j += 1
+        else:
+            i += 1
+
+    return None
     
-    bin_idx = 0
-    for point in points:
-        while point >= bins[bin_idx][1]:
-            bin_idx += 1
-        counts[bin_idx] += 1
-    
-    return [counts[i] / (n * (bins[i][1] - bins[i][0])) for i in range(len(bins))]
